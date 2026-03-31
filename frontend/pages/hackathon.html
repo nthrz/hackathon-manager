@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathon — HackManager</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="hackathons.html" class="nav-brand">HackManager</a>
+    <div class="nav-links">
+      <span id="nav-user"></span>
+      <button id="btn-logout">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div id="hackathon-info" class="card">
+      <h2 id="h-title"></h2>
+      <p id="h-desc"></p>
+      <p id="h-dates" class="muted"></p>
+      <p id="h-owner" class="muted"></p>
+      <button id="btn-join" class="btn-primary hidden">Join Hackathon</button>
+    </div>
+
+    <div class="page-header">
+      <h3>Teams</h3>
+      <button id="btn-create-team" class="btn-primary hidden">+ New Team</button>
+    </div>
+
+    <div id="create-team-form" class="card hidden">
+      <h4>Create a Team</h4>
+      <form id="team-form">
+        <label>Name</label>
+        <input type="text" id="t-name" required />
+        <label>Description</label>
+        <textarea id="t-desc"></textarea>
+        <button type="submit">Create</button>
+        <button type="button" id="btn-cancel-team">Cancel</button>
+      </form>
+    </div>
+
+    <div id="team-list" class="card-grid"></div>
+  </main>
+
+  <script src="../js/hackathon.js"></script>
+</body>
+</html>

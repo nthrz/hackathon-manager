@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hackathons — HackManager</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <span class="nav-brand">HackManager</span>
+    <div class="nav-links">
+      <span id="nav-user"></span>
+      <button id="btn-logout">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="page-header">
+      <h2>Hackathons</h2>
+      <button id="btn-create" class="btn-primary">+ New Hackathon</button>
+    </div>
+
+    <div id="create-form" class="card hidden">
+      <h3>Create a Hackathon</h3>
+      <form id="hackathon-form">
+        <label>Title</label>
+        <input type="text" id="h-title" required />
+        <label>Description</label>
+        <textarea id="h-desc"></textarea>
+        <label>Start date</label>
+        <input type="date" id="h-start" />
+        <label>End date</label>
+        <input type="date" id="h-end" />
+        <button type="submit">Create</button>
+        <button type="button" id="btn-cancel">Cancel</button>
+      </form>
+    </div>
+
+    <div id="hackathon-list" class="card-grid"></div>
+  </main>
+
+  <script src="../js/hackathons.js"></script>
+</body>
+</html>

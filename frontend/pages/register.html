@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register — HackManager</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body class="auth-page">
+  <div class="auth-card">
+    <h1>HackManager</h1>
+    <h2>Create account</h2>
+    <form id="register-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" required />
+      <label for="email">Email</label>
+      <input type="email" id="email" required />
+      <label for="password">Password</label>
+      <input type="password" id="password" required />
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="login.html">Sign in</a></p>
+    <p id="error-msg" class="error hidden"></p>
+  </div>
+  <script src="../js/register.js"></script>
+</body>
+</html>

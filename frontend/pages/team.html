@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Team — HackManager</title>
+  <link rel="stylesheet" href="../css/main.css" />
+</head>
+<body>
+  <nav class="navbar">
+    <a href="hackathons.html" class="nav-brand">HackManager</a>
+    <div class="nav-links">
+      <span id="nav-user"></span>
+      <button id="btn-logout">Logout</button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div id="team-info" class="card">
+      <h2 id="t-name"></h2>
+      <p id="t-desc"></p>
+      <p id="t-leader" class="muted"></p>
+      <button id="btn-join" class="btn-primary hidden">Join Team</button>
+    </div>
+
+    <div class="two-col">
+      <section>
+        <div class="page-header">
+          <h3>Tasks</h3>
+          <button id="btn-create-task" class="btn-primary hidden">+ New Task</button>
+        </div>
+
+        <div id="create-task-form" class="card hidden">
+          <h4>Create a Task</h4>
+          <form id="task-form">
+            <label>Title</label>
+            <input type="text" id="task-title" required />
+            <label>Description</label>
+            <textarea id="task-desc"></textarea>
+            <button type="submit">Create</button>
+            <button type="button" id="btn-cancel-task">Cancel</button>
+          </form>
+        </div>
+
+        <div id="task-list"></div>
+      </section>
+
+      <section>
+        <h3>Members</h3>
+        <div id="member-list" class="card"></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../js/team.js"></script>
+</body>
+</html>
