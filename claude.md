@@ -37,6 +37,11 @@ Repository rule:
 - `.claude/skills/` contains reusable skills
 - detailed project rules are stored in `.claude/rules/`
 
+Git rule:
+- NEVER include "Co-Authored-By" or any Claude reference in commit messages
+- commits are authored solely by the user
+- keep commit messages concise and factual
+
 Please also follow:
 - `.claude/rules/project-context.md`
 - `.claude/rules/repository-rules.md`
