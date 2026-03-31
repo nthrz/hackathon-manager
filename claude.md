@@ -47,3 +47,12 @@ Please also follow:
 - `.claude/rules/repository-rules.md`
 - `.claude/rules/skills-policy.md`
 - `.claude/rules/development-strategy.md`
+
+## Session continuity
+- Read `docs/session-notes.md` before continuing work
+- Read `docs/v1-audit.md` before deciding the next task
+- Do not start V2 until V1 is stabilized and validated
+
+## Project tracking
+- Use `docs/v1-audit.md` as the main remaining-task list for V1
+- Use `docs/session-notes.md` as the short-term session memory
