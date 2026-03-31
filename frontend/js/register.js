@@ -1,24 +1,20 @@
-const API = 'http://localhost:3000/api';
-
 document.getElementById('register-form').addEventListener('submit', async (e) => {
   e.preventDefault();
   const name     = document.getElementById('name').value.trim();
   const email    = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
+  const btn      = e.target.querySelector('button[type="submit"]');
   const errEl    = document.getElementById('error-msg');
 
+  btn.disabled = true;
+  errEl.classList.add('hidden');
+
   try {
-    const res = await fetch(`${API}/auth/register`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name, email, password })
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error);
+    await apiFetch('POST', '/auth/register', { name, email, password });
     window.location.href = 'hackathons.html';
   } catch (err) {
-    errEl.textContent = err.message;
+    errEl.textContent = err.message || 'Registration failed';
     errEl.classList.remove('hidden');
+    btn.disabled = false;
   }
 });

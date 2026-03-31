@@ -1,18 +1,3 @@
-const API = 'http://localhost:3000/api';
-
-async function apiFetch(method, path, body) {
-  const res = await fetch(`${API}${path}`, {
-    method,
-    credentials: 'include',
-    headers: body ? { 'Content-Type': 'application/json' } : {},
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (res.status === 401) { window.location.href = 'login.html'; return; }
-  const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || 'Error');
-  return data;
-}
-
 async function init() {
   const user = await apiFetch('GET', '/auth/me');
   if (!user) return;
@@ -31,51 +16,61 @@ async function init() {
     document.getElementById('create-form').classList.add('hidden');
   });
 
-  document.getElementById('hackathon-form').addEventListener('submit', async (e) => {
+  const form = document.getElementById('hackathon-form');
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    await apiFetch('POST', '/hackathons', {
-      title:       document.getElementById('h-title').value.trim(),
-      description: document.getElementById('h-desc').value.trim(),
-      start_date:  document.getElementById('h-start').value,
-      end_date:    document.getElementById('h-end').value
-    });
-    document.getElementById('create-form').classList.add('hidden');
-    document.getElementById('hackathon-form').reset();
-    loadHackathons();
+    const btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true;
+    try {
+      await apiFetch('POST', '/hackathons', {
+        title:       document.getElementById('h-title').value.trim(),
+        description: document.getElementById('h-desc').value.trim(),
+        start_date:  document.getElementById('h-start').value,
+        end_date:    document.getElementById('h-end').value
+      });
+      document.getElementById('create-form').classList.add('hidden');
+      form.reset();
+      await loadHackathons();
+    } catch (err) {
+      alert(err.message || 'Failed to create hackathon');
+    } finally {
+      btn.disabled = false;
+    }
   });
 
-  loadHackathons();
+  await loadHackathons();
 }
 
 async function loadHackathons() {
-  const hackathons = await apiFetch('GET', '/hackathons');
-  if (!hackathons) return;
-  const list = document.getElementById('hackathon-list');
-  list.innerHTML = '';
+  try {
+    const hackathons = await apiFetch('GET', '/hackathons');
+    if (!hackathons) return;
+    const list = document.getElementById('hackathon-list');
+    list.innerHTML = '';
 
-  if (hackathons.length === 0) {
-    list.innerHTML = '<p class="muted">No hackathons yet. Create the first one!</p>';
-    return;
-  }
+    if (hackathons.length === 0) {
+      list.innerHTML = '<p class="muted">No hackathons yet. Create the first one!</p>';
+      return;
+    }
 
-  hackathons.forEach(h => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <h3>${escape(h.title)}</h3>
-      <p>${escape(h.description || '')}</p>
-      <p class="muted">By ${escape(h.owner_name)}</p>
-    `;
-    card.style.cursor = 'pointer';
-    card.addEventListener('click', () => {
-      window.location.href = `hackathon.html?id=${h.id}`;
+    hackathons.forEach(h => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${escape(h.title)}</h3>
+        <p>${escape(h.description || '')}</p>
+        <p class="muted">By ${escape(h.owner_name)}</p>
+      `;
+      card.style.cursor = 'pointer';
+      card.addEventListener('click', () => {
+        window.location.href = `hackathon.html?id=${h.id}`;
+      });
+      list.appendChild(card);
     });
-    list.appendChild(card);
-  });
-}
-
-function escape(str) {
-  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  } catch (err) {
+    document.getElementById('hackathon-list').innerHTML =
+      `<p class="error">Could not load hackathons: ${escape(err.message)}</p>`;
+  }
 }
 
 init();

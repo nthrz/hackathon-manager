@@ -12,7 +12,7 @@ class DbWrapper {
   }
 
   exec(sql) {
-    this._db.run(sql);
+    this._db.exec(sql);
     this._save();
   }
 
@@ -127,7 +127,7 @@ async function initDatabase() {
   }
 
   dbWrapper = new DbWrapper(sqlDb);
-  dbWrapper._db.run(SCHEMA);
+  dbWrapper._db.exec(SCHEMA);
 
   return dbWrapper;
 }

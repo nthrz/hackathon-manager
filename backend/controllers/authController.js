@@ -34,8 +34,10 @@ function login(req, res) {
 }
 
 function logout(req, res) {
-  req.session.destroy();
-  res.json({ message: 'Logged out' });
+  req.session.destroy((err) => {
+    if (err) return res.status(500).json({ error: 'Logout failed' });
+    res.json({ message: 'Logged out' });
+  });
 }
 
 function me(req, res) {
