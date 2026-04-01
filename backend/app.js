@@ -2,7 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const cors = require('cors');
 
-const { initDatabase } = require('./db/database');
+const { initDatabase, getDb } = require('./db/database');
 const authRoutes = require('./routes/auth');
 const hackathonRoutes = require('./routes/hackathons');
 const teamRoutes = require('./routes/teams');
@@ -38,6 +38,13 @@ app.use('/api/auth', authRoutes);
 app.use('/api/hackathons', hackathonRoutes);
 app.use('/api/teams', teamRoutes);
 app.use('/api/tasks', taskRoutes);
+
+function gracefulShutdown() {
+  try { getDb()._save(); } catch (_) {}
+  process.exit(0);
+}
+process.on('SIGINT',  gracefulShutdown);
+process.on('SIGTERM', gracefulShutdown);
 
 initDatabase()
   .then(() => {

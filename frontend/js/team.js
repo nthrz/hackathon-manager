@@ -24,6 +24,7 @@ async function init() {
     currentTeam = await apiFetch('GET', `/teams/${teamId}`);
     if (!currentTeam) return;
 
+    document.getElementById('back-link').href = `hackathon.html?id=${currentTeam.hackathon_id}`;
     document.title = `${currentTeam.name} — HackManager`;
     document.getElementById('t-name').textContent   = currentTeam.name;
     document.getElementById('t-desc').textContent   = currentTeam.description || '';

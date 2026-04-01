@@ -2,7 +2,7 @@ const teamModel = require('../models/teamModel');
 const hackathonModel = require('../models/hackathonModel');
 
 function list(req, res) {
-  const teams = teamModel.getByHackathon(req.params.hackathonId);
+  const teams = teamModel.getByHackathon(req.params.id);
   res.json(teams);
 }
 

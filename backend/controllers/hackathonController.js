@@ -11,9 +11,18 @@ function get(req, res) {
   res.json(hackathon);
 }
 
+const DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+function isValidDate(str) {
+  if (!str) return true;
+  return DATE_RE.test(str) && !isNaN(new Date(str).getTime());
+}
+
 function create(req, res) {
   const { title, description, start_date, end_date } = req.body;
   if (!title) return res.status(400).json({ error: 'Title is required' });
+  if (!isValidDate(start_date) || !isValidDate(end_date)) {
+    return res.status(400).json({ error: 'Dates must be in YYYY-MM-DD format' });
+  }
 
   const id = hackathonModel.create(title, description, start_date, end_date, req.session.userId);
   hackathonModel.addMember(id, req.session.userId);

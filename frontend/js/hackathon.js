@@ -47,6 +47,7 @@ async function init() {
         }
       });
     } else {
+      document.getElementById('member-badge').classList.remove('hidden');
       document.getElementById('btn-create-team').classList.remove('hidden');
     }
 

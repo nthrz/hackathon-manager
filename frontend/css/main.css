@@ -241,8 +241,24 @@ select {
 }
 .member-item:last-child { border-bottom: none; }
 
+/* --- Back link --- */
+.back-link {
+  display: inline-block;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-decoration: none;
+  margin-bottom: 0.75rem;
+}
+.back-link:hover { color: var(--primary); }
+
 /* --- Utilities --- */
 .muted   { color: var(--muted); font-size: 0.9rem; }
 .error   { color: var(--danger); font-size: 0.875rem; margin-top: 0.5rem; }
 .hidden  { display: none !important; }
 .mt-1    { margin-top: 0.5rem; }
+
+/* --- Responsive --- */
+@media (max-width: 640px) {
+  .two-col { grid-template-columns: 1fr; }
+  .card-grid { grid-template-columns: 1fr; }
+}
