@@ -19,6 +19,13 @@
 - [x] "Back to hackathon" link on team page
 - [x] Password confirmation field on register page
 - [x] Mobile layout: `.two-col` and `.card-grid` collapse to 1 column on small screens
+- [x] Language support: French (default) + English toggle, localStorage persistence
+- [x] All static UI text uses `data-i18n` attributes
+- [x] All dynamic JS strings use `t(key)` — no hardcoded English in UI
+- [x] Language toggle button on all pages
+- [x] Fixed loop variable `t` → `team` in `hackathon.js` (was shadowing global `t()`)
+- [x] Fixed `delete` key missing from i18n (button showed raw key name)
+- [x] Fixed team form Name label key (`title` → `name` in `hackathon.html`)
 
 ## V1 status: STABLE — ready for demo
 

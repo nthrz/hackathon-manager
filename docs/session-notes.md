@@ -3,6 +3,7 @@
 ## Current state
 
 V1 is complete and stable. All critical and high-priority bugs are fixed.
+Language support (FR/EN) added and committed.
 Ready for professor demo.
 
 ## What is working
@@ -16,17 +17,17 @@ Ready for professor demo.
 - Database: sql.js, no native compilation, persists to hackathon.db
 - Graceful shutdown: SIGINT/SIGTERM saves DB before exit
 - Mobile layout: responsive on small screens
+- Language: French default + English toggle, localStorage persistence
 
 ## Last completed work
 
-V1 finalization commit (b078ddc):
-- route param naming unified
-- date validation added
-- graceful shutdown
-- member badge on hackathon page
-- back link on team page
-- password confirmation on register
-- mobile CSS breakpoint
+i18n commit (360b0de):
+- i18n.js with full FR/EN translation dictionary
+- data-i18n attributes on all 5 HTML pages
+- t(key) function with localStorage persistence
+- language toggle button on all pages
+- fixed delete button label (was showing raw key)
+- fixed team Name label in hackathon form
 
 ## Next session plan
 
