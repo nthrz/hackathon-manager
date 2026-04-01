@@ -22,7 +22,7 @@ async function init() {
     document.title = `${currentHackathon.title} — HackManager`;
     document.getElementById('h-title').textContent = currentHackathon.title;
     document.getElementById('h-desc').textContent  = currentHackathon.description || '';
-    document.getElementById('h-owner').textContent = `Organizer: ${currentHackathon.owner_name}`;
+    document.getElementById('h-owner').textContent = `${t('organizer')} : ${currentHackathon.owner_name}`;
 
     if (currentHackathon.start_date || currentHackathon.end_date) {
       document.getElementById('h-dates').textContent =
@@ -42,7 +42,7 @@ async function init() {
           await apiFetch('POST', `/hackathons/${hackathonId}/join`);
           window.location.reload();
         } catch (err) {
-          alert(err.message || 'Failed to join hackathon');
+          alert(err.message || t('failedJoinHackathon'));
           btn.disabled = false;
         }
       });
@@ -74,7 +74,7 @@ async function init() {
         teamForm.reset();
         await loadTeams();
       } catch (err) {
-        alert(err.message || 'Failed to create team');
+        alert(err.message || t('failedCreateTeam'));
       } finally {
         btn.disabled = false;
       }
@@ -94,27 +94,27 @@ async function loadTeams() {
     list.innerHTML = '';
 
     if (teams.length === 0) {
-      list.innerHTML = '<p class="muted">No teams yet.</p>';
+      list.innerHTML = `<p class="muted">${t('noTeams')}</p>`;
       return;
     }
 
-    teams.forEach(t => {
+    teams.forEach(team => {
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <h3>${escape(t.name)}</h3>
-        <p>${escape(t.description || '')}</p>
-        <p class="muted">Leader: ${escape(t.leader_name)}</p>
+        <h3>${escape(team.name)}</h3>
+        <p>${escape(team.description || '')}</p>
+        <p class="muted">${t('leader')} : ${escape(team.leader_name)}</p>
       `;
       card.style.cursor = 'pointer';
       card.addEventListener('click', () => {
-        window.location.href = `team.html?id=${t.id}`;
+        window.location.href = `team.html?id=${team.id}`;
       });
       list.appendChild(card);
     });
   } catch (err) {
     document.getElementById('team-list').innerHTML =
-      `<p class="error">Could not load teams: ${escape(err.message)}</p>`;
+      `<p class="error">${t('failedLoadTeams')} : ${escape(err.message)}</p>`;
   }
 }
 

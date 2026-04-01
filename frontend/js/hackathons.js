@@ -32,7 +32,7 @@ async function init() {
       form.reset();
       await loadHackathons();
     } catch (err) {
-      alert(err.message || 'Failed to create hackathon');
+      alert(err.message || t('failedCreateHackathon'));
     } finally {
       btn.disabled = false;
     }
@@ -49,7 +49,7 @@ async function loadHackathons() {
     list.innerHTML = '';
 
     if (hackathons.length === 0) {
-      list.innerHTML = '<p class="muted">No hackathons yet. Create the first one!</p>';
+      list.innerHTML = `<p class="muted">${t('noHackathons')}</p>`;
       return;
     }
 
@@ -59,7 +59,7 @@ async function loadHackathons() {
       card.innerHTML = `
         <h3>${escape(h.title)}</h3>
         <p>${escape(h.description || '')}</p>
-        <p class="muted">By ${escape(h.owner_name)}</p>
+        <p class="muted">${t('by')} ${escape(h.owner_name)}</p>
       `;
       card.style.cursor = 'pointer';
       card.addEventListener('click', () => {
@@ -69,7 +69,7 @@ async function loadHackathons() {
     });
   } catch (err) {
     document.getElementById('hackathon-list').innerHTML =
-      `<p class="error">Could not load hackathons: ${escape(err.message)}</p>`;
+      `<p class="error">${t('failedLoadHackathons')} : ${escape(err.message)}</p>`;
   }
 }
 

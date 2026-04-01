@@ -14,7 +14,7 @@ async function apiFetch(method, path, body) {
   }
 
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error || 'Request failed');
+  if (!res.ok) throw new Error(data.error || t('requestFailed'));
   return data;
 }
 

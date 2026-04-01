@@ -12,7 +12,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     await apiFetch('POST', '/auth/login', { email, password });
     window.location.href = 'hackathons.html';
   } catch (err) {
-    errEl.textContent = err.message || 'Login failed';
+    errEl.textContent = err.message || t('loginFailed');
     errEl.classList.remove('hidden');
     btn.disabled = false;
   }

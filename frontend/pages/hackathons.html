@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hackathons — HackManager</title>
+  <title>HackManager</title>
   <link rel="stylesheet" href="../css/main.css" />
 </head>
 <body>
@@ -11,35 +11,37 @@
     <span class="nav-brand">HackManager</span>
     <div class="nav-links">
       <span id="nav-user"></span>
-      <button id="btn-logout">Logout</button>
+      <button id="btn-lang" class="btn-lang">EN</button>
+      <button id="btn-logout" data-i18n="logout">Logout</button>
     </div>
   </nav>
 
   <main class="container">
     <div class="page-header">
-      <h2>Hackathons</h2>
-      <button id="btn-create" class="btn-primary">+ New Hackathon</button>
+      <h2 data-i18n="hackathons">Hackathons</h2>
+      <button id="btn-create" class="btn-primary" data-i18n="newHackathon">+ New Hackathon</button>
     </div>
 
     <div id="create-form" class="card hidden">
-      <h3>Create a Hackathon</h3>
+      <h3 data-i18n="createHackathon">Create a Hackathon</h3>
       <form id="hackathon-form">
-        <label>Title</label>
+        <label data-i18n="title">Title</label>
         <input type="text" id="h-title" required />
-        <label>Description</label>
+        <label data-i18n="description">Description</label>
         <textarea id="h-desc"></textarea>
-        <label>Start date</label>
+        <label data-i18n="startDate">Start date</label>
         <input type="date" id="h-start" />
-        <label>End date</label>
+        <label data-i18n="endDate">End date</label>
         <input type="date" id="h-end" />
-        <button type="submit">Create</button>
-        <button type="button" id="btn-cancel">Cancel</button>
+        <button type="submit" data-i18n="create">Create</button>
+        <button type="button" id="btn-cancel" data-i18n="cancel">Cancel</button>
       </form>
     </div>
 
     <div id="hackathon-list" class="card-grid"></div>
   </main>
 
+  <script src="../js/i18n.js"></script>
   <script src="../js/api.js"></script>
   <script src="../js/hackathons.js"></script>
 </body>

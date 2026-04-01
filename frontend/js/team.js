@@ -5,7 +5,12 @@ let currentTeam  = null;
 let isMember     = false;
 
 function badgeHtml(status) {
-  return `<span class="badge badge-${status}">${status.replace('_', ' ')}</span>`;
+  const labels = {
+    todo:        t('statusTodo'),
+    in_progress: t('statusInProgress'),
+    done:        t('statusDone')
+  };
+  return `<span class="badge badge-${status}">${labels[status] || status}</span>`;
 }
 
 async function init() {
@@ -28,7 +33,7 @@ async function init() {
     document.title = `${currentTeam.name} — HackManager`;
     document.getElementById('t-name').textContent   = currentTeam.name;
     document.getElementById('t-desc').textContent   = currentTeam.description || '';
-    document.getElementById('t-leader').textContent = `Leader: ${currentTeam.leader_name}`;
+    document.getElementById('t-leader').textContent = `${t('leader')} : ${currentTeam.leader_name}`;
 
     const members = await apiFetch('GET', `/teams/${teamId}/members`);
     if (!members) return;
@@ -45,7 +50,7 @@ async function init() {
           await apiFetch('POST', `/teams/${teamId}/join`);
           window.location.reload();
         } catch (err) {
-          alert(err.message || 'Failed to join team');
+          alert(err.message || t('failedJoinTeam'));
           btn.disabled = false;
         }
       });
@@ -76,7 +81,7 @@ async function init() {
         taskForm.reset();
         await loadTasks();
       } catch (err) {
-        alert(err.message || 'Failed to create task');
+        alert(err.message || t('failedCreateTask'));
       } finally {
         btn.disabled = false;
       }
@@ -96,7 +101,7 @@ async function loadTasks() {
     list.innerHTML = '';
 
     if (tasks.length === 0) {
-      list.innerHTML = '<p class="muted">No tasks yet.</p>';
+      list.innerHTML = `<p class="muted">${t('noTasks')}</p>`;
       return;
     }
 
@@ -108,14 +113,14 @@ async function loadTasks() {
 
       const statusSelect = isMember
         ? `<select data-id="${task.id}" class="status-select">
-            <option value="todo"        ${task.status === 'todo'        ? 'selected' : ''}>Todo</option>
-            <option value="in_progress" ${task.status === 'in_progress' ? 'selected' : ''}>In Progress</option>
-            <option value="done"        ${task.status === 'done'        ? 'selected' : ''}>Done</option>
+            <option value="todo"        ${task.status === 'todo'        ? 'selected' : ''}>${t('statusTodo')}</option>
+            <option value="in_progress" ${task.status === 'in_progress' ? 'selected' : ''}>${t('statusInProgress')}</option>
+            <option value="done"        ${task.status === 'done'        ? 'selected' : ''}>${t('statusDone')}</option>
           </select>`
         : badgeHtml(task.status);
 
       const deleteBtn = isLeader
-        ? `<button class="btn-delete" data-id="${task.id}">Delete</button>`
+        ? `<button class="btn-delete" data-id="${task.id}">${t('delete')}</button>`
         : '';
 
       item.innerHTML = `
@@ -136,7 +141,7 @@ async function loadTasks() {
         try {
           await apiFetch('PATCH', `/tasks/${sel.dataset.id}/status`, { status: sel.value });
         } catch (err) {
-          alert(err.message || 'Failed to update status');
+          alert(err.message || t('failedUpdateStatus'));
           await loadTasks();
         }
       });
@@ -144,18 +149,18 @@ async function loadTasks() {
 
     list.querySelectorAll('.btn-delete').forEach(btn => {
       btn.addEventListener('click', async () => {
-        if (!confirm('Delete this task?')) return;
+        if (!confirm(t('deleteTask'))) return;
         try {
           await apiFetch('DELETE', `/tasks/${btn.dataset.id}`);
           await loadTasks();
         } catch (err) {
-          alert(err.message || 'Failed to delete task');
+          alert(err.message || t('failedDeleteTask'));
         }
       });
     });
   } catch (err) {
     document.getElementById('task-list').innerHTML =
-      `<p class="error">Could not load tasks: ${escape(err.message)}</p>`;
+      `<p class="error">${t('failedLoadTasks')} : ${escape(err.message)}</p>`;
   }
 }
 
@@ -166,7 +171,7 @@ function renderMembers(members) {
     const item = document.createElement('div');
     item.className = 'member-item';
     const isLeader = m.id === currentTeam.leader_id;
-    item.innerHTML = `${escape(m.name)}${isLeader ? ' <span class="muted">(leader)</span>' : ''}`;
+    item.innerHTML = `${escape(m.name)}${isLeader ? ` <span class="muted">${t('leaderBadge')}</span>` : ''}`;
     list.appendChild(item);
   });
 }

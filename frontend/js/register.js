@@ -8,7 +8,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
   const errEl     = document.getElementById('error-msg');
 
   if (password !== password2) {
-    errEl.textContent = 'Passwords do not match';
+    errEl.textContent = t('passwordMismatch');
     errEl.classList.remove('hidden');
     return;
   }
@@ -20,7 +20,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
     await apiFetch('POST', '/auth/register', { name, email, password });
     window.location.href = 'hackathons.html';
   } catch (err) {
-    errEl.textContent = err.message || 'Registration failed';
+    errEl.textContent = err.message || t('registerFailed');
     errEl.classList.remove('hidden');
     btn.disabled = false;
   }
