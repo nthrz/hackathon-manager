@@ -1,6 +1,10 @@
 # V1 Audit — HackManager
 
-## Already fixed
+## V1 status: COMPLETE AND STABLE — demo-ready, no further changes planned
+
+---
+
+## All fixed issues
 
 - [x] Schema creation bug in `db/database.js` (`exec` instead of `run`)
 - [x] Logout race condition in `authController.js`
@@ -27,12 +31,25 @@
 - [x] Fixed `delete` key missing from i18n (button showed raw key name)
 - [x] Fixed team form Name label key (`title` → `name` in `hackathon.html`)
 
-## V1 status: STABLE — ready for demo
+---
 
-## Remaining known limitations (acceptable for V1)
+## Known limitations — acceptable for V1, planned for V2
 
 - Session secret hardcoded (acceptable for student project)
-- No hackathon or team edit/delete (planned V2)
-- No task assignment to specific members (planned V2)
-- No pagination (planned V2)
-- No join request approval flow (planned V2)
+- sql.js in-memory DB with manual persistence (replaced in V2 by EF Core + SQLite)
+- No hackathon or team edit/delete → V2
+- No task assignment to specific members → V2
+- No pagination → V2
+- No join request approval flow → V2
+- No search or filtering → V2
+- Frontend JS mixes data-fetching and rendering (no service layer) → V2
+
+---
+
+## V2 direction decided
+
+Backend: C# + FastEndpoints + EF Core
+Architecture: MVC with service layer
+Repository: fresh repo (do not carry V1 commit history)
+
+See `docs/session-notes.md` for full V2 plan.
